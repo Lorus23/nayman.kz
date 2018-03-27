@@ -10,6 +10,28 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '{your-app-id}',
+            cookie     : true,
+            xfbml      : true,
+            version    : '{latest-api-version}'
+        });
+
+        FB.AppEvents.logPageView();
+
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -35,5 +57,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php ActiveForm::end(); ?>
         </div>
+        <div class="col-lg-5">
+            <h3>Login with Facebook</h3>
+            <?= yii\authclient\widgets\AuthChoice::widget([
+                'baseAuthUrl' => ['site/auth'],
+                'popupMode' => false,
+            ]) ?>
+        </div>
+
     </div>
 </div>
